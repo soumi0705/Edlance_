@@ -140,8 +140,8 @@ var EdABI = [
 ]
 // const Web3 = require('web3')
 
-let metamaskWeb3 = new Web3('http://localhost:8545')
-//let metamaskWeb3 = new Web3('https://rpc-mumbai.matic.today')
+//let metamaskWeb3 = new Web3('http://localhost:8545')
+let metamaskWeb3 = new Web3('https://rpc-mumbai.matic.today')
 let account = null
 let edlanceContract
 let edlanceContractAddress = '0x1f40468873aa351eF4C65BD4aE4E777D6ce4042F' // Paste Contract address here

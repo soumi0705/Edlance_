@@ -2,7 +2,7 @@ var router = require("express").Router();
 const request = require('request');
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
-const uri = "mongodb+srv://root:soumi07@quest.ni5bi.mongodb.net/edlance?retryWrites=true&w=majority";
+const uri = ""; //enter your own uri
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("edlance").collection("Questions");
