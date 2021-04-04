@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edlance</title>
+    <link rel="shortcut icon" href="./images/edlancelogo.ico" type="image/x-icon">
+    <link href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.4/web3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../js/utils.js"></script>
+    
+</head>
+<body >
+   <!-- <div class="h-16 bg-yellow-500  shadow-xl ">-->
+       <!-- <nav class=" p-3 ">
+                    <div class="inline ">
+                        <h1 class="inline tracking-wider text-gray-100 text-3xl font-bold ">
+                            <svg class="w-8 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                            </svg>
+                            EdLαnce
+                        </h1>
+                    </div>
+                        <div class="inline-block mx-40   mr-0 w-1/2">
+                            <form name="search" method="POST" action="/searched">
+                                <input name="sbar" type="text" placeholder="Find Solutions" class="rounded  outline-none px-2 w-full bg-opacity-70bg-gray-200 " >
+                            </form> 
+                        </div>
+                        <button onclick="s()" class=" inline focus:outline-none  bg-blue-500  text-white px-2  rounded ">Search</button>
+        </nav> -->
+        <div class="h-16  " style="background-color: #F6741F;">
+            <nav class=" p-3 ">
+                        <div class="inline text-center">
+                            <h1 class="inline  tracking-wider text-gray-100 text-3xl font-bold ">
+                                <svg class="w-8 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                </svg>
+                                EdLαnce
+                            </h1>
+                        </div>
+                            <!-- search -->
+                            <div class="inline float-right py-1   mr-24 w-1/6">
+                                <form name="search">
+                                <input type="text" name="sbar" id="sbar" placeholder="Find Solutions" class="rounded-full h-8  outline-none px-4  bg-opacity-70bg-gray-200 " >
+                                </form>
+                                
+                            </div>
+                            
+                </nav>
+
+        </div>
+
+        <div class="">
+            <div class="relative" >
+                <img class=" object-cover h-60 w-full" src="./images/Books.jpg" alt="">
+                <div style="text-shadow: 1px 1px 2px #000;" class="w-1/3 text-center flex justify-center m-auto absolute bg-black font-bold text-3xl text-white mx-auto my-32 inset-0 h-10 ">Ask. Answer.<div class="px-1 text-green-300">Stonks!</div></div>
+
+            </div>
+        </div>
+
+        <!-- post -->
+        <div class="" style="width: 30%; margin:2em auto;">
+        <form name="postQuestions">
+            <input type="hidden" name="_id">
+            <input type="hidden" name="stud_id" value="1">
+            <input type="number" class="px-2 outline-none border-2 border-gray-300 inline bg-gray-100 w-full focus:border-blue-500" name="bounty" placeholder="Bounty(mETH)">
+            
+        <textarea  name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-24  hover:border-blue-300" placeholder="Post your questions!" id="" ></textarea></form>
+
+            <!-- buttons -->
+            <div class="block float-right mt-1">
+                <button id="imageButton" style="background-color: #F6741F;" class=" focus:outline-none  text-white  border-yellow-500  rounded mr-2  px-2  ">
+                    Image
+                </button>
+                <button id="buttonAsk" onclick="func()" class=" focus:outline-none  bg-blue-500  text-white px-2 inline ml-auto rounded ">Ask!</button>
+                <input id="inputUpload" type="file" hidden>
+
+            </div>
+            </div>
+            <div class=" m-20" >
+            <h1 class="text-center text-2xl font-semibold text-gray-600">
+                My Doubts
+                
+                <svg class="w-8 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                </svg>
+            </h1>
+
+            <!-- display questions -->
+
+        <!--    <div class="grid">
+                <div class="mt-4 bg-gray-100 rounded w-1/2 m-auto p-4 shadow-md">
+                    <h1 class="text-gray-500 text-sm">
+                        <svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                          </svg>
+                        Priority
+                    </h1>
+
+                    <p class="font-semibold pt-4 pb-2 ">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste mollitia veritatis, soluta labore ducimus ipsam reprehenderit, quis aperiam minus sed iusto doloremque quidem, accusantium assumenda maxime dignissimos fuga reiciendis vel?
+                    </p>
+
+                    <p class="text-gray-500 font-mono px-6 text-sm pb-2">
+                        this is anwser to display----
+                    </p>
+                    <h1 class="text-green-500 text-md font-bold inline">
+                        <svg class="w-6 inline"xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        Bounty ETH
+                    </h1>
+                    <p class="inline float-right text-sm text-gray-400">
+                        23:06
+                    </p>
+                </div>
+                
+            </div>
+            
+                
+
+        </div> -->
+            <div id="myQuestions"></div>
+            <button onclick="foo()" id="imageButton" style="background-color: #F6741F;" class=" focus:outline-none  text-white  border-yellow-500  mt-4 rounded p-2 m-auto block ">
+                Explore More
+            </button>
+</body>
+<script>
+    function foo(){
+        window.location.href="http://localhost:5000/stud-dash";
+    }
+    var sb = document.getElementById("sbar");
+    sb.addEventListener("keyup", function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        console.log("Enter");
+        s();
+    }
+    });
+    function s(){
+            var formData = new FormData(search);
+            window.location.href="http://localhost:5000/quessearch?term="+formData.get("sbar");
+        }
+</script>
+<script>
+    
+        async function func(){                
+                //bounty1 = toString(bounty)
+                const qlen = await fetchAllQuestions();
+                var qlength = qlen.length; 
+                var formData = new FormData(postQuestions);
+                var request = new XMLHttpRequest();
+                var b = formData.get('bounty');
+                var bt = metamaskWeb3.utils.toWei(b,'milli')
+                console.log(bt);
+                const posteddd = await postQuestion(bt);
+                const qs = await fetchAllQuestions();
+                formData.set('_id', qs.length-1);
+                for (var value of formData.values()) {
+                    console.log(value);
+                }
+                //if(_id>qlen){}
+                request.open("POST", "/stud-ask");
+                //request.setRequestHeader("Content-Type", "application/json");
+                var formData1 = '_id='+formData.get("_id")+'&stud_id='+formData.get("stud_id")+'&bounty='+formData.get("bounty")+'&questions='+formData.get("questions");
+                //var formData= {"_id":0}
+                // request.setRequestHeader("Content-Type", "application/json")
+                console.log();
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                request.send(formData1);
+                window.location.reload();
+        }
+        
+</script>
+
+<script>
+    var quest = <%- JSON.stringify(result)%>;
+    var ans = <%- JSON.stringify(result2)%>;
+    $(document).ready(async function(){
+        var qs = await fetchAllQuestions();
+        //console.log(quest[1].question);
+        for(i=0;i<quest.length;i++){
+            var q = qs[parseInt(quest[i]._id)]
+            $("#myQuestions").append(
+                '<div class="grid">'+
+                '<div class="mt-4 bg-gray-50 w-3/4 m-auto p-4 border-2">'+
+                    '<h1 class="text-red-500 text-sm">'+
+                        '<!-- ejs if else condition if ETH>100 change priority red ETH<10 to green else black for expire! -->'+
+                        '<svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">'+
+                            '<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />'+
+                            '<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />'+
+                          '</svg>'+
+                        'Priority'+
+                        '<!-- set priority --></h1>'+
+
+"                            <!-- question content -->"+
+                    '<p  class="font-semibold pt-4 pb-2 px-2">'+
+                        quest[i].question+
+                    '</p>'+
+                    
+                    '<!-- answer Textarea -->'+
+
+                    '<p id="ans'+i+'" class="text-gray-500 font-mono text-sm pb-2">'+
+                    //    '<textarea id="textareaQuestion'+i+'" class="px-2 py-1 w-full outline-none translate-x-0  focus:border-blue-500 rounded border-2  h-24 hover:bg-white hover:border-blue-500 " placeholder="Write Your Solution..." id="" ></textarea>'+
+                        
+                        
+                    '</p>'+
+         /*           '<div class="block float-right ">'+
+                        '<button id="imageButton" class=" focus:outline-none   bg-purple-500 text-white  border-yellow-500  rounded mr-2  px-2  ">'+
+                            'Attach'+
+                        '</button>'+
+                        '<button id="" onclick="func('+i+')" class=" focus:outline-none  bg-blue-500  text-white px-2 ml-auto rounded ">Post</button>'+
+                        '<input id="" type="file" hidden>'+
+                        '</div>'+
+
+                        '<div class="block">'+*/
+                            '<p class="inline px-6 text-sm text-gray-400">'+
+                                '23:06'+
+                            '</p>'+
+
+                           '<h1 id="amt'+i+'"  class="text-green-500 text-md font-bold ">'+
+                                'mETH '+metamaskWeb3.utils.fromWei(q.bounty,'milli')+'/-'+
+                                '<!-- set ETH -->'+
+                            '</h1>'+
+                            
+                        '</div>'+
+                '</div>'+
+                
+            '</div>');
+            for(j=0;j<ans.length;j++){
+                if(ans[j]._id==quest[i]._id){
+                    $("#ans"+i).append('<div class="px-6">'+ans[j].answer+'</div>');
+                    $('#amt'+i).html('0/-');
+                }
+            } 
+        }            
+    });
+</script>
+<script>
+    var provider = setProvider();
+</script>
+
+<script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+<script src="../js/dashboard-student.js"></script>
+
+</html>
