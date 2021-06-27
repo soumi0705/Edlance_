@@ -19,7 +19,6 @@ const bodyParser = require('body-parser');
 const uri = "mongodb+srv://root:soumi07@quest.ni5bi.mongodb.net/edlance?retryWrites=true&w=majority"; //enter your own uri
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-    const collection = client.db("edlance").collection("Questions");
     router.get("/expert-dash", function(req, res) {
         if ((req.session.userID != '' || req.session.userID != null) && req.session.userType == 'expert') {
             console.log("Expert Logged in");
@@ -138,17 +137,15 @@ client.connect(err => {
             if (err || result == null) {
                 console.log("Not in Experts");
             } else {
-                bcrypt.compare(req.body.passId, result.passId, function(err, result) {
-                    // console.log("In Expert checking Password " + result);
-                    // console.log(doc);
-                    if (result == true) {
-                        req.session.userID = doc.sName;
-                        req.session.userType = 'expert';
-                        res.jsonp({ success: true, stud: false });
-                    } else {
-                        res.jsonp({ success: false });
-                    }
-                });
+                doc = result;
+                if (bcrypt.compareSync(req.body.passId, result.passId)) {
+                    console.log("In Expert checking Password " + result);
+                    req.session.userID = doc.sName;
+                    req.session.userType = 'expert';
+                    res.redirect('/expert-dash');
+                } else {
+                    res.render('login');
+                }
                 // console.log(result);
             }
 
