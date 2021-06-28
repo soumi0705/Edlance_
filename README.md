@@ -3,8 +3,8 @@ D-App for Freelancing in Education
 -----------------------------------
 ### **Team Name :** Nuvs
 ### **Team Members :**
-Soumitro Datta\
-Kunal Singh
+[Soumitro Datta](https://github.com/soumi0705)\
+[Kunal Singh](https://github.com/kvnal)
 - - - - -
 **The problem Edlαnce solves :** \
 Field of Interest :\
