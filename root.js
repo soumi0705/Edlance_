@@ -102,6 +102,8 @@ client.connect(err => {
 
     router.post("/studAns", function(req, res) {
         console.log(req.body);
+        const collection = client.db("edlance").collection("Stud_Answers");
+        collection.insertOne({ qid: req.body._id, stud_acc: req.body.acc, answer: req.body.answers });
         res.status(200);
         res.redirect("stud-dash");
     })
@@ -166,6 +168,7 @@ client.connect(err => {
         const collection = client.db("edlance").collection("Questions");
         const collection2 = client.db("edlance").collection("Answers");
         collection.find({ $text: { $search: s } }).toArray(function(err, result) {
+            if (err) throw err;
             collection2.find().toArray(function(err2, answer) {
                 if (err2) throw err2;
                 res.render("searched", { result: result, result2: answer });
