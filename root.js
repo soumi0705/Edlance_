@@ -1,4 +1,5 @@
 //Team-Nuvs
+const path = require('path')
 const express = require('express');
 var session = require('express-session');
 const app = express();
@@ -9,6 +10,7 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: true }
 }))
+app.use(express.urlencoded({extends:true})) 
 
 var router = require("express").Router();
 const request = require('request');
@@ -177,8 +179,20 @@ client.connect(err => {
         });
     });
 
+    router.get("/register",(req,res)=>{
+        return res.sendFile(path.join(__dirname,'public','pages','register.html'))
+
+    })
+
+    router.post("/register",(req,res)=>{
+        // store to mongodb
+        console.log(req.body);
+        //req.body.username (email.pass.usermode)
+        return res.redirect("/")
+    })
 
 });
+
 
 
 // router.get("/expert-dash",function(req,res){
