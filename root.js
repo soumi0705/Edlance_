@@ -1,5 +1,6 @@
 //Team-Nuvs
 const path = require('path')
+const socket = require('socket.io')
 const express = require('express');
 var session = require('express-session');
 const app = express();
@@ -247,6 +248,9 @@ client.connect(err => {
     });
     /************************************************************************************************************/
 
+    router.get("/chat",(req,res)=>{
+        return res.sendFile(path.join(__dirname,'public','pages','chat.html'));
+    })
 });
 
 
