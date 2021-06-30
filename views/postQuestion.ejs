@@ -131,13 +131,13 @@
 
         </div> -->
         <div id="myQuestions"></div>
-        <button onclick="foo()" id="imageButton" style="background-color: #F6741F;" class=" focus:outline-none  text-white  border-yellow-500  mt-4 rounded p-2 m-auto block ">
+        <button onclick="dashboard()" id="imageButton" style="background-color: #F6741F;" class=" focus:outline-none  text-white  border-yellow-500  mt-4 rounded p-2 m-auto block ">
                 Explore More
             </button>
 </body>
 <script>
-    function foo() {
-        window.location.href = "http://localhost:5000/stud-dash";
+    function dashboard() {
+        window.location.href = "/stud-dash";
     }
     var sb = document.getElementById("sbar");
     sb.addEventListener("keyup", function(event) {
@@ -153,7 +153,7 @@
 
     function s() {
         var formData = new FormData(search);
-        window.location.href = "http://localhost:5000/quessearch?term=" + formData.get("sbar");
+        window.location.href = "/quessearch?term=" + formData.get("sbar");
     }
 </script>
 <script>
