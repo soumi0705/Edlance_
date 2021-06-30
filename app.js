@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 var rootRoute = require('./root');
 var session = require('express-session');
 const app = express();
+const socket = require('./socket')
+
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
         secret: 'f<7M$@B`',
@@ -25,4 +27,5 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 // Routes
 app.use(rootRoute);
-app.listen(process.env.PORT || port, () => console.log(`App listening at http://localhost:${port}`))
+var server = app.listen(process.env.PORT || port, () => console.log(`App listening at http://localhost:${port}`))
+socket(server)
