@@ -77,15 +77,15 @@
             <input type="hidden" name="stud_id" value="1">
             <input type="number" class="px-2 outline-none border-2 border-gray-300 inline bg-gray-100 w-full focus:border-blue-500" name="bounty" placeholder="Bounty(mETH)">
 
-            
+
             <!-- <textarea name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-24  hover:border-blue-300" placeholder="Post your questions!" id=""></textarea></form> -->
             <div name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-24  hover:border-blue-300">
                 <!-- quill text editor -->
             </div>
-            
-            </form>
 
-            
+        </form>
+
+
 
         <!-- buttons -->
         <div class="block float-right mt-1">
@@ -147,7 +147,6 @@
             </button>
 </body>
 <script>
-
 </script>
 
 <script>
@@ -173,9 +172,9 @@
 </script>
 <script>
     // quill
-    const quill = new Quill('#textareaQuestion',{
+    const quill = new Quill('#textareaQuestion', {
         theme: 'snow',
-        placeholder : 'Post Your Question...'
+        placeholder: 'Post Your Question...'
     })
 
 
@@ -192,7 +191,7 @@
         const posteddd = await postQuestion(bt);
         const qs = await fetchAllQuestions();
         formData.set('_id', qs.length - 1);
-        formData.set('questions',JSON.stringify(quill.getContents()));
+        formData.set('questions', JSON.stringify(quill.getContents()));
         for (var value of formData.values()) {
             console.log(value);
         }
@@ -231,8 +230,9 @@
 
                 "                            <!-- question content -->" +
                 '<p  class="font-semibold pt-4 pb-2 px-2">'
-                    //  +quest[i].question +
-                    +'<div id="quill'+i+'"></div>'+
+                //  +quest[i].question +
+                +
+                '<div id="quill' + i + '"></div>' +
                 '</p>' +
 
                 '<!-- answer Textarea -->' +
@@ -264,12 +264,13 @@
                 '</div>' +
 
                 '</div>');
-                
-                var quill_ = new Quill(`quill${i}`,{
-                    theme:'snow',
-                    readOnly:true
-                })
-                quill_.setContents(JSON.parse(quest[i].question))
+
+            var quill_ = new Quill(`#quill${i}`, {
+                theme: 'snow',
+                readOnly: true
+            })
+            console.log(JSON.parse(quest[i].question))
+            quill_.setContents(JSON.parse(quest[i].question))
 
             for (j = 0; j < ans.length; j++) {
                 if (ans[j]._id == quest[i]._id) {
