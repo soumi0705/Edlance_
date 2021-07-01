@@ -110,7 +110,7 @@
     </div>
 
     <!-- post -->
-    <div class="" style="width: 30%; margin:2em auto;">
+    <div class="" style="width: 50%; margin:2em auto;">
         <form name="postQuestions">
             <input type="hidden" name="_id">
             <input type="hidden" name="stud_id" value="1">
@@ -211,9 +211,22 @@
 </script>
 <script>
     // quill
+    var toolbarOptions = [
+    [{ 'header': [1, 2, 3] }],
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block'],
+    ['link','image','video'],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    ['clean']                                         // remove formatting button
+];
     const quill = new Quill('#textareaQuestion', {
         theme: 'snow',
-        placeholder: 'Post Your Question...'
+        placeholder: 'Post Your Question...',
+        modules:{
+            toolbar: toolbarOptions
+        }
     })
 
 
@@ -306,7 +319,10 @@
 
             var quill_ = new Quill(`#quill${i}`, {
                 theme: 'snow',
-                readOnly: true
+                readOnly: true,
+                modules:{
+                    toolbar:false
+                }
             })
             console.log(JSON.parse(quest[i].question))
             quill_.setContents(JSON.parse(quest[i].question))
