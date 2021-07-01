@@ -7,6 +7,8 @@
     </title>
     <link rel="shortcut icon" href="./images/edlancelogo.ico" type="image/x-icon">
     <link href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.4/web3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -77,8 +79,10 @@
                         '<!-- set priority --></h1>' +
 
                         "                            <!-- question content -->" +
-                        '<p class="font-semibold pt-4 pb-2 px-2">' +
-                        quest[i].question +
+                        '<p class="font-semibold pt-4 pb-2 px-2">' 
+                            // +quest[i].question +
+                        + '<div id="quill' + i + '"></div>' +
+
                         '</p>' +
 
                         '<!-- answer Textarea -->' +
@@ -86,9 +90,10 @@
                         '<input type="hidden" name="_id" value=' + i + '>' +
                         '<input type="hidden" name="acc" value=' + acc + '>' +
                         '</form>' +
-                        '<p class="text-gray-500 font-mono text-sm pb-2">' +
-                        '<textarea form="answer" id="textareaQuestion" name="answers" class="px-2 py-1 w-full outline-none translate-x-0  focus:border-blue-500 rounded border-2  h-24 hover:bg-white hover:border-blue-500 " placeholder="Write Your Solution..."></textarea>' +
+                        '<p class="text-gray-500 font-mono text-sm pb-2">' 
+                            // +'<textarea form="answer" id="textareaQuestion" name="answers" class="px-2 py-1 w-full outline-none translate-x-0  focus:border-blue-500 rounded border-2  h-24 hover:bg-white hover:border-blue-500 " placeholder="Write Your Solution..."></textarea>' +
 
+                            +'<div name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-24  hover:border-blue-300"><!-- quill text editor --></div>'+
 
                         '</p>' +
                         '<div class="block float-right ">' +
@@ -112,6 +117,38 @@
                         '</div>');
 
                 });
+
+                // quill
+                var toolbarOptions = [
+                            [{ 'header': [1, 2, 3] }],
+                            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                            ['blockquote', 'code-block'],
+                            ['link','image','video'],
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                            ['clean']                                         // remove formatting button
+                        ];
+
+                    const quill = new Quill('#textareaQuestion', {
+                                    theme: 'snow',
+                                    placeholder: 'Post Your Question...',
+                                    modules:{
+                                        toolbar: toolbarOptions
+                                    }
+                                })
+
+                    // quill question
+                    
+                    const quillQuestion = new Quill(`#quill${i}`, {
+                                    theme: 'snow',
+                                    modules:{
+                                        toolbar: false
+                                    }
+                                })
+                    quillQuestion.setContents(JSON.parse(quest[i].question))
+
+
             </script>
 
 
@@ -122,8 +159,12 @@
 
     <script src="./js/utils.js"></script>
     <script>
+        const _form = document.querySelector("#answer")
+
         function func() {
             console.log("IN Func");
+            var formdata = new FormData(_form)
+            formdata.set('answers',JSON.stringify(quill.getContents()))
             $("answer").submit();
             window.location.href = "/expert-dash";
         };

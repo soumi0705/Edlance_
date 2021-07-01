@@ -6,6 +6,8 @@
     </title>
     <link rel="shortcut icon" href="./images/edlancelogo.ico" type="image/x-icon">
     <link href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.4/web3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!--***************-->
@@ -110,8 +112,9 @@
                             '<!-- set priority --></h1>' +
 
                             "                            <!-- question content -->" +
-                            '<p class="font-semibold pt-4 pb-2 px-2">' +
-                            quest[i].question +
+                            '<p class="font-semibold pt-4 pb-2 px-2">' 
+                            // quest[i].question +
+                            + '<div id="quill' + i + '"></div>' +
                             '</p>' +
 
                             '<!-- answer Textarea -->' +
@@ -139,6 +142,15 @@
                             '</div>' +
 
                             '</div>');
+                            var quill_ = new Quill(`#quill${i}`, {
+                            theme: 'snow',
+                            readOnly: true,
+                            modules:{
+                            toolbar:false
+                          }
+                    })
+                    quill_.setContents(JSON.parse(quest[i].question))
+
                         for (j = 0; j < ans.length; j++) {
                             if (ans[j]._id == quest[i]._id) {
                                 $("#ans" + i).append('<div class="">' + ans[j].answer + '</div>');

@@ -128,9 +128,9 @@
 
         <!-- buttons -->
         <div class="block float-right mt-1">
-            <button id="imageButton" style="background-color: #F6741F;" class=" focus:outline-none  text-white  border-yellow-500  rounded mr-2  px-2  ">
+            <!-- <button id="imageButton" style="background-color: #F6741F;" class=" focus:outline-none  text-white  border-yellow-500  rounded mr-2  px-2  ">
                     Image
-                </button>
+                </button> -->
             <button id="buttonAsk" onclick="func()" class=" focus:outline-none  bg-blue-500  text-white px-2 inline ml-auto rounded ">Ask!</button>
             <input id="inputUpload" type="file" hidden>
 
@@ -324,7 +324,6 @@
                     toolbar:false
                 }
             })
-            console.log(JSON.parse(quest[i].question))
             quill_.setContents(JSON.parse(quest[i].question))
 
             for (j = 0; j < ans.length; j++) {
