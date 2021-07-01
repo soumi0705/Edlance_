@@ -93,6 +93,8 @@ client.connect(err => {
                             res.render("postQuestion", { result: result, result2: answer });
                         });
                     });
+                } else {
+                    res.redirect('/');
                 }
 
             });
@@ -131,7 +133,6 @@ client.connect(err => {
         }
 
     });
-
     router.post("/studAns", function(req, res) {
         console.log(req.body);
         const collection = client.db("edlance").collection("Stud_Answers");
@@ -209,7 +210,6 @@ client.connect(err => {
         }
     });
     /************************************************************************************************************/
-
     router.get("/expAns", function(req, res) {
         try {
             thenpromise2.then(() => {
@@ -247,10 +247,21 @@ client.connect(err => {
         return res.redirect("/")
     });
     /************************************************************************************************************/
+    router.get("/chat", (req, res) => {
+        try {
+            thenpromise.then(() => {
+                req.session.userID = userID;
+                req.session.userType = userType;
+                console.log('Session in stud-ask ' + req.session.userID);
+                if ((req.session.userID != '' || req.session.userID != null) && req.session.userType == 'student') {
+                    return res.sendFile(path.join(__dirname, 'public', 'pages', 'chat.html'));
+                }
+            });
+        } catch {
+            res.redirect('/');
+        }
+    });
 
-    router.get("/chat",(req,res)=>{
-        return res.sendFile(path.join(__dirname,'public','pages','chat.html'));
-    })
 });
 
 
