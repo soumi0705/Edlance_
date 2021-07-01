@@ -60,6 +60,7 @@
             <!-- display questions -->
             <script>
                 var quest = <%- JSON.stringify(result)%>;
+                var quill;
                 $(document).ready(async function() {
                     var qs = await fetchAllQuestions();
                     const params = new URLSearchParams(window.location.search)
@@ -79,18 +80,20 @@
                         '<!-- set priority --></h1>' +
 
                         "                            <!-- question content -->" +
-                        '<p class="font-semibold pt-4 pb-2 px-2">' 
-                            // +quest[i].question +
-                        + '<div id="quill' + i + '"></div>' +
+                        '<p class="font-semibold pt-4 pb-2 px-2">'
+                        // +quest[i].question +
+                        +
+                        '<div id="quill' + i + '"></div>' +
                         '</p>' +
 
                         '<!-- answer Textarea -->' +
-                        '<form id="answer" action"/expAns" method="POST">' +
+                        '<form name=answer id="answer" action"/expAns" method="POST">' +
                         '<input type="hidden" name="_id" value=' + i + '>' +
                         '</form>' +
-                        '<p class="text-gray-500 font-mono text-sm pb-2">' 
-                            // +'<textarea form="answer" id="textareaQuestion" name="answers" class="px-2 py-1 w-full outline-none translate-x-0  focus:border-blue-500 rounded border-2  h-24 hover:bg-white hover:border-blue-500 " placeholder="Write Your Solution..."></textarea>' +
-                            +'<div name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-24  hover:border-blue-300"><!-- quill text editor --></div>'+
+                        '<p class="text-gray-500 font-mono text-sm pb-2">'
+                        // +'<textarea form="answer" id="textareaQuestion" name="answers" class="px-2 py-1 w-full outline-none translate-x-0  focus:border-blue-500 rounded border-2  h-24 hover:bg-white hover:border-blue-500 " placeholder="Write Your Solution..."></textarea>' +
+                        +
+                        '<div name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-24  hover:border-blue-300"><!-- quill text editor --></div>' +
                         '</p>' +
                         '<div class="block float-right ">' +
 
@@ -101,7 +104,7 @@
                         '<div class="block">' +
 
                         '<h1 class="text-green-500 text-md font-bold ">' +
-                        'μETH ' + metamaskWeb3.utils.fromWei(q.bounty, 'milli') + '/-' +
+                        'mETH ' + metamaskWeb3.utils.fromWei(q.bounty, 'milli') + '/-' +
                         '<!-- set ETH -->' +
                         '</h1>' +
                         '<p class="inline px-8 text-sm text-gray-400">' +
@@ -111,39 +114,73 @@
                         '</div>' +
 
                         '</div>');
+                    quill = new Quill('#textareaQuestion', {
+                        theme: 'snow',
+                        placeholder: 'Post Your Question...',
+                        modules: {
+                            toolbar: toolbarOptions
+                        }
+                    })
+
+                    // quill question
+
+                    const quillQuestion = new Quill(`#quill${i}`, {
+                        theme: 'snow',
+                        modules: {
+                            toolbar: false
+                        }
+                    })
+                    quillQuestion.setContents(JSON.parse(quest[i].question))
 
                 });
 
                 // quill
                 var toolbarOptions = [
-                            [{ 'header': [1, 2, 3] }],
-                            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                            ['blockquote', 'code-block'],
-                            ['link','image','video'],
-                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-                            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                            ['clean']                                         // remove formatting button
-                        ];
+                    [{
+                        'header': [1, 2, 3]
+                    }],
+                    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+                    ['blockquote', 'code-block'],
+                    ['link', 'image', 'video'],
+                    [{
+                        'list': 'ordered'
+                    }, {
+                        'list': 'bullet'
+                    }],
+                    [{
+                        'script': 'sub'
+                    }, {
+                        'script': 'super'
+                    }], // superscript/subscript
+                    [{
+                        'color': []
+                    }, {
+                        'background': []
+                    }], // dropdown with defaults from theme
+                    ['clean'] // remove formatting button
+                ];
 
-                    const quill = new Quill('#textareaQuestion', {
-                                    theme: 'snow',
-                                    placeholder: 'Post Your Question...',
-                                    modules:{
-                                        toolbar: toolbarOptions
-                                    }
-                                })
+                async function func(i, bounty) {
 
-                    // quill question
-                    
-                    const quillQuestion = new Quill(`#quill${i}`, {
-                                    theme: 'snow',
-                                    modules:{
-                                        toolbar: false
-                                    }
-                                })
-                    quillQuestion.setContents(JSON.parse(quest[i].question))
+                    //bounty1 = toString(bounty)
+                    bounty1 = metamaskWeb3.utils.toBN(bounty);
 
+                    amt = metamaskWeb3.utils.toWei(bounty1, 'wei');
+                    console.log(i + ' ' + amt)
+                        //const withdraw = await ansedWithdraw(i, "e", amt);
+                    var request = new XMLHttpRequest();
+                    var formdata = new FormData(answer)
+                    formdata.append('answers', JSON.stringify(quill.getContents()))
+                    request.open("POST", "/expAns");
+                    //request.setRequestHeader("Content-Type", "application/json");
+                    var formdata1 = '_id=' + formdata.get("_id") + '&answers=' + formdata.get("answers");
+                    //var formdata= {"_id":0}
+                    // request.setRequestHeader("Content-Type", "application/json")
+                    console.log();
+                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    request.send(formdata1);
+                    window.location.href = "/expert-dash";
+                };
             </script>
 
 
@@ -153,22 +190,6 @@
 
 
     <script src="./js/utils.js"></script>
-    <script>
-        const _form = document.querySelector("#answer")
-        async function func(i, bounty) {
-
-            //bounty1 = toString(bounty)
-            bounty1 = metamaskWeb3.utils.toBN(bounty);
-
-            amt = metamaskWeb3.utils.toWei(bounty1, 'wei');
-            console.log(i + ' ' + amt)
-            const withdraw = await ansedWithdraw(i, "e", amt);
-            var formdata = new FormData(_form)
-            formdata.set('answers',JSON.stringify(quill.getContents()))
-            $("answer").submit();
-            window.location.href = "/expert-dash";
-        };
-    </script>
 
     <script>
         var provider = setProvider();
