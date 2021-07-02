@@ -22,7 +22,6 @@ var userID;
 var userType;
 
 
-
 client.connect(err => {
     app.set('trust proxy', 1) // trust first proxy
     app.use(session({
@@ -36,7 +35,7 @@ client.connect(err => {
         try {
             [flag, req.session.userID, req.session.userType] = await thenpromise2;
             console.log('Session: ' + req.session.userID);
-            if (req.session.userID != null || req.session.userID != '') {
+            if (req.session.userID != null || req.session.userID != '' && req.session.userType == 'expert') {
                 console.log('Session Verified:' + req.session.userID);
             } else {
                 console.log('Failed');
@@ -56,7 +55,7 @@ client.connect(err => {
         try {
             [flag, req.session.userID, req.session.userType] = await thenpromise;
             console.log('Session: ' + req.session.userID);
-            if (req.session.userID != null || req.session.userID != '') {
+            if (req.session.userID != null || req.session.userID != '' && req.session.userType == 'student') {
                 console.log('Session Verified:' + req.session.userID);
             } else {
                 console.log('Failed');
@@ -84,20 +83,20 @@ client.connect(err => {
         var doc;
         var promise = collection.findOne({ emailId: req.body.emailId });
         var promise2 = collection2.findOne({ emailId: req.body.emailId });
+
         thenpromise = promise.then(function(result) {
 
             if (result == null) {
                 console.log("Not in Users");
+                return null;
             } else {
                 console.log(result);
                 doc = result;
                 if (bcrypt.compareSync(req.body.passId, result.passId)) {
                     console.log("In Student checking Password ");
-                    req.session.userID = doc.expName;
-                    req.session.userType = 'expert';
-                    res.redirect('/stud-ask');
+                    req.session.userID = doc.sName;
+                    req.session.userType = 'student';
                     return [1, req.session.userID, req.session.userType];
-
                 } else {
                     res.render('login');
                 }
@@ -106,6 +105,7 @@ client.connect(err => {
         thenpromise2 = promise2.then(function(result) {
             if (result == null) {
                 console.log("Not in Experts");
+                return null;
             } else {
                 console.log(result);
                 doc = result;
@@ -113,20 +113,23 @@ client.connect(err => {
                     console.log("In Expert checking Password ");
                     req.session.userID = doc.expName;
                     req.session.userType = 'expert';
+
                     return [1, req.session.userID, req.session.userType];
-                    //res.redirect('/expert-dash');
                 } else {
                     res.render('login');
                 }
             }
         });
-        var sess = await thenpromise2;
-        if (sess[0] == 1) {
-            req.session.userID = sess[1];
-            req.session.userType = sess[2];
-            req.session.save();
+        var stud = await thenpromise;
+        var expe = await thenpromise2;
+        if (stud != null) {
+            res.redirect('/stud-ask');
+        } else if (expe != null) {
             res.redirect('/expert-dash');
+        } else {
+            res.redirect('/');
         }
+
 
     });
     /************************************************************************************************************/
@@ -149,28 +152,14 @@ client.connect(err => {
         res.redirect("stud-dash");
     });
     /************************************************************************************************************/
-    app.get("/studAns", function(req, res) {
-        try {
-            thenpromise.then(() => {
-                req.session.userID = userID;
-                req.session.userType = userType;
-                console.log('Session in studAns ' + req.session.userID);
-                if ((req.session.userID != '' || req.session.userID != null) && req.session.userType == 'student') {
-                    console.log("Student Logged in");
-                    const collection = client.db("edlance").collection("Questions");
-                    collection.find().toArray(function(err, result) {
-                        if (err) throw err;
-                        res.render("studAnswer", { result });
-                    });
-                } else {
-                    res.redirect('/');
-                }
+    app.get("/studAns", checkLoginUser2, async function(req, res) {
 
-            });
-        } catch {
-            res.redirect('/');
-        }
-
+        console.log("Student Logged in");
+        const collection = client.db("edlance").collection("Questions");
+        collection.find().toArray(function(err, result) {
+            if (err) throw err;
+            res.render("studAnswer", { result });
+        });
     });
     app.post("/studAns", function(req, res) {
         console.log(req.body);
@@ -180,47 +169,30 @@ client.connect(err => {
         res.redirect("stud-dash");
     });
     /************************************************************************************************************/
-    app.get("/stud-dash", function(req, res) {
-        try {
-            thenpromise.then(() => {
-                if ((req.session.userID != '' || req.session.userID != null) && req.session.userType == 'student') {
-                    console.log("Student Logged in");
-                }
-                const collection = client.db("edlance").collection("Questions");
-                const collection2 = client.db("edlance").collection("Answers");
-                collection.find().toArray(function(err, result) {
-                    if (err) throw err;
-                    collection2.find().toArray(function(err2, answer) {
-                        if (err2) throw err2;
-                        res.render("studDashboard", { result: result, result2: answer });
-                    });
-
-                });
+    app.get("/stud-dash", checkLoginUser2, async function(req, res) {
+        const collection = client.db("edlance").collection("Questions");
+        const collection2 = client.db("edlance").collection("Answers");
+        collection.find().toArray(function(err, result) {
+            if (err) throw err;
+            collection2.find().toArray(function(err2, answer) {
+                if (err2) throw err2;
+                res.render("studDashboard", { result: result, result2: answer });
             });
-        } catch {
-            res.redirect('/');
-        }
+        });
     });
     /************************************************************************************************************/
-    app.get("/quessearch", function(req, res) {
-        //console.log(req.query.term);
-        try {
-            thenpromise.then(() => {
-                const s = req.query.term;
-                console.log(s);
-                const collection = client.db("edlance").collection("Questions");
-                const collection2 = client.db("edlance").collection("Answers");
-                collection.find({ $text: { $search: s } }).toArray(function(err, result) {
-                    if (err) throw err;
-                    collection2.find().toArray(function(err2, answer) {
-                        if (err2) throw err2;
-                        res.render("searched", { result: result, result2: answer });
-                    });
-                });
+    app.get("/quessearch", checkLoginUser2, async function(req, res) {
+        const s = req.query.term;
+        console.log(s);
+        const collection = client.db("edlance").collection("Questions");
+        const collection2 = client.db("edlance").collection("Answers");
+        collection.find({ $text: { $search: s } }).toArray(function(err, result) {
+            if (err) throw err;
+            collection2.find().toArray(function(err2, answer) {
+                if (err2) throw err2;
+                res.render("searched", { result: result, result2: answer });
             });
-        } catch {
-            res.redirect('/');
-        }
+        });
     });
     /************************************************************************************************************/
     app.get("/expert-dash", checkLoginUser, async function(req, res) {
@@ -238,24 +210,12 @@ client.connect(err => {
         });
     });
     /************************************************************************************************************/
-    app.get("/expAns", function(req, res) {
-        try {
-            thenpromise2.then(() => {
-                req.session.userID = userID;
-                req.session.userType = userType;
-                console.log('Session in Expert-Dash ' + req.session.userID);
-                if ((req.session.userID != '' || req.session.userID != null) && req.session.userType == 'expert') {
-                    console.log("Expert Logged in");
-                }
-                const collection = client.db("edlance").collection("Questions");
-                collection.find().toArray(function(err, result) {
-                    if (err) throw err;
-                    res.render("expAnswer", { result });
-                });
-            });
-        } catch {
-            res.redirect('/');
-        }
+    app.get("/expAns", checkLoginUser, async function(req, res) {
+        const collection = client.db("edlance").collection("Questions");
+        collection.find().toArray(function(err, result) {
+            if (err) throw err;
+            res.render("expAnswer", { result });
+        });
     });
     app.post("/expAns", function(req, res) {
         const collection = client.db("edlance").collection("Answers");
@@ -275,22 +235,8 @@ client.connect(err => {
         return res.redirect("/")
     });
     /************************************************************************************************************/
-    app.get("/chat", (req, res) => {
-        try {
-            thenpromise.then(() => {
-                req.session.userID = userID;
-                req.session.userType = userType;
-                console.log('Session in stud-ask ' + req.session.userID);
-                if ((req.session.userID != '' || req.session.userID != null) && req.session.userType == 'student') {
-                    return res.sendFile(path.join(__dirname, 'public', 'pages', 'chat.html'));
-                }
-            });
-        } catch {
-            res.redirect('/');
-        }
+    app.get("/chat", checkLoginUser2, async(req, res) => {
+        return res.sendFile(path.join(__dirname, 'public', 'pages', 'chat.html'));
     });
-
 });
-
-
 module.exports = app;
