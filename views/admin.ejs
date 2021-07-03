@@ -8,6 +8,8 @@
     <title>Chats</title>
     <link href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
     <!--***************-->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <!--JS for dropdown change Later-->
 
@@ -98,7 +100,7 @@
                         
                         <div class="block m-4">
                             <h1 class="w-max m-auto">Student</h1>
-                            <span class="block font-mono w-max m-auto text-5xl text-yellow-500"><%= noStudent %> </span>
+                            <span class="block font-mono w-max m-auto text-5xl text-blue-500"><%= noStudent %> </span>
                         </div>
                         <div class="block m-4">
                             <h1 class="w-max m-auto">Expert</h1>
@@ -120,7 +122,7 @@
                         </div>
                         <div class="block m-4">
                             <h1 class="w-max m-auto">Last 24 hrs</h1>
-                            <span class="block font-mono w-max m-auto text-5xl text-blue-500">4</span>
+                            <span class="block font-mono w-max m-auto text-5xl text-green-500">4</span>
                         </div>
                     </div>
                     
@@ -133,6 +135,7 @@
             Questions
         </div>
         <div class="block">
+            <% Questions.forEach(element => { %> 
             <div class="grid">
                 <div class="mt-4 bg-gray-50 w-3/4 m-auto p-4 border-2">
                 <h1 class="text-red-500 text-sm">
@@ -142,12 +145,15 @@
                 </svg>
                 </h1>
         
-                <p class="font-semibold pt-4 pb-2 px-2">
+               
                 <!-- question here -->
-                <div id="quill' + i + '"></div></p>
-                <!-- answer if/else -->
-
-                <div id="quillAns' + i + '"></div>
+                <div class="mb-2">
+                    <div class="bg-blue-100" id="<%="quillQ"+element._id %>"></div>
+                </div>
+                
+                <div class="bg-green-100 mb-2">
+                    <div id="<%= 'quillA'+element._id %>" ></div>
+                </div>
 
                 <div class="block float-right ">
                 <button id="imageButton" class=" focus:outline-none   bg-purple-500 text-white  border-yellow-500  rounded mr-2  px-2  ">
@@ -164,12 +170,43 @@
                 </div>
                 </div>
                 </div>
-                
+                <% }) %> 
            </div>
 
     </div>
 
   
 </body>
+<script>
+    var questions = <%-JSON.stringify(Questions)%>;
+    var answers = <%-JSON.stringify(Answers)%>;
+    
+    document.onreadystatechange = ()=>{
 
+        if(document.readyState =="complete"){
+            questions.forEach(Element =>{
+                var quill = new Quill(`#quillQ${Element._id}`,{
+                    theme: 'snow',
+                            readOnly: true,
+                            modules: {
+                                toolbar: false
+                            }
+                })
+                quill.setContents(JSON.parse(Element.question))
+            })
+
+            answers.forEach(Element =>{
+                var quill = new Quill(`#quillA${Element._id}`,{
+                    theme: 'snow',
+                            readOnly: true,
+                            modules: {
+                                toolbar: false
+                            }
+                })
+                quill.setContents(JSON.parse(Element.answer))
+            })
+        }
+    }
+
+</script>
 </html>
