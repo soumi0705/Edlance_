@@ -181,6 +181,17 @@
     var questions = <%-JSON.stringify(Questions)%>;
     var answers = <%-JSON.stringify(Answers)%>;
     
+    const answerSet =  (id,quillcontent)=>{
+        var quill = new Quill(`#quillA${id}`,{
+                    theme: 'snow',
+                            readOnly: true,
+                            modules: {
+                                toolbar: false
+                            }
+                })
+                return quill.setContents(JSON.parse(quillcontent))
+    }
+
     document.onreadystatechange = ()=>{
 
         if(document.readyState =="complete"){
@@ -193,18 +204,9 @@
                             }
                 })
                 quill.setContents(JSON.parse(Element.question))
+                answers.filter(ElementA => Element._id == ElementA._id && answerSet(ElementA._id,ElementA.answer))
             })
 
-            answers.forEach(Element =>{
-                var quill = new Quill(`#quillA${Element._id}`,{
-                    theme: 'snow',
-                            readOnly: true,
-                            modules: {
-                                toolbar: false
-                            }
-                })
-                quill.setContents(JSON.parse(Element.answer))
-            })
         }
     }
 
