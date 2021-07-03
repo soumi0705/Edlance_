@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats</title>
+    <link href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <!--***************-->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <!--JS for dropdown change Later-->
+
+</head>
+
+<body>
+    <div class="h-16   shadow-xl bg-gradient-to-r from-red-500 to-red-700 " >
+        <nav class="text-3xl font-bold text-center tracking-wider text-gray-100 p-3 ">
+            <svg class="w-8 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                  </svg> EdLαnce
+                  <abbr title="Admininstrator" style="border: none;
+                  text-decoration: none;">
+                  <span class="text-white inline cursor-pointer text-sm"  >Admin 
+      
+                          <svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                          </svg>
+                      </span>
+                  </abbr>
+            <!-- Dropdown -->
+            <!-- <div class="inline font-medium float-right">
+                <div x-data="{ dropdownOpen: true }" class="relative">
+                    <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
+                    <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                  </button>
+
+                    <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+
+                    <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                        <a href="/stud-dash" class="block px-4 py-2 text-left text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                      Question dashboard
+                    </a>
+                        <a href="/stud-ask" class="block px-4 py-2 text-left text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                      Ask
+                    </a>
+                        <a href="/chat" class="block px-4 py-2 text-left text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                        Discuss
+                      </a>
+                        <!-- <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                      Help
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                      Settings
+                    </a> -->
+                        <!-- <a href="/" class="block px-4 py-2 text-left text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                      Sign Out
+                    </a>
+                    </div>
+                </div>
+            </div> --> 
+            <!--********************************-->
+        </nav>
+        <div class="block text-center m-2 text-4xl font-mono">Stats</div>
+
+        <div class="flex justify-center">
+            
+            <div class=" block m-4 p-4 bg-gray-100 w-min rounded-md shadow-md">
+                    
+                <div class="flex justify-center">
+                    <h1 class="text-xl font-medium">Question</h1>
+                </div>
+                <div class="flex justify-between">
+                    
+                    <div class="block m-4">
+                        <h1 class="w-max m-auto">Solved</h1>
+                        <span class="block font-mono w-max m-auto text-5xl text-green-500">30</span>
+                    </div>
+                    <div class="block m-4">
+                        <h1 class="w-max m-auto">Unsolved</h1>
+                        <span class="block font-mono w-max m-auto text-5xl text-red-500">100</span>
+                    </div>
+                </div>
+            
+            </div>
+            <div class=" block m-4 p-4 bg-gray-100 w-min rounded-md shadow-md">
+                    
+                <div class="flex justify-center">
+                    <h1 class="text-xl font-medium">Userbase</h1>
+                </div>
+                <div class="flex justify-between">
+                    
+                    <div class="block m-4">
+                        <h1 class="w-max m-auto">Student</h1>
+                        <span class="block font-mono w-max m-auto text-5xl text-yellow-500">5</span>
+                    </div>
+                    <div class="block m-4">
+                        <h1 class="w-max m-auto">Expert</h1>
+                        <span class="block font-mono w-max m-auto text-5xl text-blue-500">2</span>
+                    </div>
+                </div>
+            
+            </div>
+            <div class=" block m-4 p-4 bg-gray-100 w-min rounded-md shadow-md">
+                    
+                <div class="flex justify-center">
+                    <h1 class="text-xl font-medium">Transactions</h1>
+                </div>
+                <div class="flex justify-between">
+                    
+                    <div class="block m-4">
+                        <h1 class="w-max m-auto">Total</h1>
+                        <span class="block font-mono w-max m-auto text-5xl text-green-500">10</span>
+                    </div>
+                    <div class="block m-4">
+                        <h1 class="w-max m-auto">Last 24 hrs</h1>
+                        <span class="block font-mono w-max m-auto text-5xl text-blue-500">4</span>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+
+    </div>
+
+   <div >
+    
+   </div>
+</body>
+
+</html>
