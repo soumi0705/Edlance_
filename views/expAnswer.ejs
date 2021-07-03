@@ -65,6 +65,7 @@
                     var qs = await fetchAllQuestions();
                     const params = new URLSearchParams(window.location.search)
                     var i = params.get('id')
+                    var qid = params.get('qid')
                     var q = qs[parseInt(quest[i]._id)]
                     console.log(i);
                     $("body").append(
@@ -87,8 +88,8 @@
                         '</p>' +
 
                         '<!-- answer Textarea -->' +
-                        '<form name=answer id="answer" action"/expAns" method="POST">' +
-                        '<input type="hidden" name="_id" value=' + i + '>' +
+                        '<form name=answer id="answer">' +
+                        '<input type="hidden" name="_id" value=' + qid + '>' +
                         '</form>' +
                         '<p class="text-gray-500 font-mono text-sm pb-2">'
                         // +'<textarea form="answer" id="textareaQuestion" name="answers" class="px-2 py-1 w-full outline-none translate-x-0  focus:border-blue-500 rounded border-2  h-24 hover:bg-white hover:border-blue-500 " placeholder="Write Your Solution..."></textarea>' +
@@ -163,13 +164,16 @@
                 async function func(i, bounty) {
 
                     //bounty1 = toString(bounty)
+                    event.preventDefault();
                     bounty1 = metamaskWeb3.utils.toBN(bounty);
 
                     amt = metamaskWeb3.utils.toWei(bounty1, 'wei');
                     console.log(i + ' ' + amt)
-                        //const withdraw = await ansedWithdraw(i, "e", amt);
+                    const withdraw = await ansedWithdraw(i, "e", amt);
+                    console.log(withdraw);
                     var request = new XMLHttpRequest();
                     var formdata = new FormData(answer)
+                    console.log(quill.getContents())
                     formdata.append('answers', JSON.stringify(quill.getContents()))
                     request.open("POST", "/expAns");
                     //request.setRequestHeader("Content-Type", "application/json");

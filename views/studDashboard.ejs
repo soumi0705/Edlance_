@@ -112,9 +112,10 @@
                             '<!-- set priority --></h1>' +
 
                             "                            <!-- question content -->" +
-                            '<p class="font-semibold pt-4 pb-2 px-2">' 
+                            '<p class="font-semibold pt-4 pb-2 px-2">'
                             // quest[i].question +
-                            + '<div id="quill' + i + '"></div>' +
+                            +
+                            '<div id="quill' + i + '"></div>' +
                             '</p>' +
 
                             '<!-- answer Textarea -->' +
@@ -142,19 +143,27 @@
                             '</div>' +
 
                             '</div>');
-                            var quill_ = new Quill(`#quill${i}`, {
+                        var quill_ = new Quill(`#quill${i}`, {
                             theme: 'snow',
                             readOnly: true,
-                            modules:{
-                            toolbar:false
-                          }
-                    })
-                    quill_.setContents(JSON.parse(quest[i].question))
+                            modules: {
+                                toolbar: false
+                            }
+                        })
+                        quill_.setContents(JSON.parse(quest[i].question))
 
                         for (j = 0; j < ans.length; j++) {
                             if (ans[j]._id == quest[i]._id) {
-                                $("#ans" + i).append('<div class="">' + ans[j].answer + '</div>');
+                                $("#ans" + i).append(`<div id='quillanswer${j}'></div>`);
                                 $('#amt' + i).html('0/-');
+                                var quill_ = new Quill(`#quillanswer${j}`, {
+                                    theme: 'snow',
+                                    readOnly: true,
+                                    modules: {
+                                        toolbar: false
+                                    }
+                                })
+                                quill_.setContents(JSON.parse(ans[j].answer));
                             }
                         }
                     }

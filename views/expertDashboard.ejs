@@ -64,7 +64,7 @@
 
                 for (i = 0; i < quest.length; i++) {
                     var q = qs[parseInt(quest[i]._id)]
-                    console.log(q);
+                    console.log(quest[i]._id);
                     $("body").append(
                         '<div class="grid">' +
                         '<div class="mt-4 bg-gray-50 w-3/4 m-auto p-4 border-2">' +
@@ -78,9 +78,10 @@
                         '<!-- set priority --></h1>' +
 
                         "                            <!-- question content -->" +
-                        '<p class="font-semibold pt-4 pb-2 px-2">' 
-                            // +quest[i].question +
-                            +'<div id="quill' + i + '"></div>' +
+                        '<p class="font-semibold pt-4 pb-2 px-2">'
+                        // +quest[i].question +
+                        +
+                        '<div id="quill' + i + '"></div>' +
                         '</p>' +
 
                         '<!-- answer Textarea -->' +
@@ -92,7 +93,7 @@
                         // '<button id="imageButton" class=" focus:outline-none   bg-purple-500 text-white  border-yellow-500  rounded mr-2  px-2  ">' +
                         // 'Attach' +
                         // '</button>' +
-                        '<button id="" onclick="func(' + i + ')" class=" focus:outline-none  bg-blue-500  text-white px-2 ml-auto rounded ">Post</button>' +
+                        '<button id="" onclick="func(' + quest[i]._id + ',' + i + ')" class=" focus:outline-none  bg-blue-500  text-white px-2 ml-auto rounded ">Post</button>' +
                         '<input id="" type="file" hidden>' +
                         '</div>' +
 
@@ -109,20 +110,28 @@
                         '</div>' +
 
                         '</div>');
-                        
-                        var quill_ = new Quill(`#quill${i}`, {
-                            theme: 'snow',
-                            readOnly: true,
-                            modules:{
-                                toolbar:false
-                            }
-                        })
+
+                    var quill_ = new Quill(`#quill${i}`, {
+                        theme: 'snow',
+                        readOnly: true,
+                        modules: {
+                            toolbar: false
+                        }
+                    })
                     quill_.setContents(JSON.parse(quest[i].question))
 
                     for (j = 0; j < ans.length; j++) {
                         if (ans[j]._id == quest[i]._id) {
-                            $("#ans" + i).append('<div class="">' + ans[j].answer + '</div>');
+                            $("#ans" + i).append(`<div id='quillanswer${j}'></div>`);
                             $('#amt' + i).html('0/-');
+                            var quill_ = new Quill(`#quillanswer${j}`, {
+                                theme: 'snow',
+                                readOnly: true,
+                                modules: {
+                                    toolbar: false
+                                }
+                            })
+                            quill_.setContents(JSON.parse(ans[j].answer));
                         }
                     }
 
@@ -135,8 +144,8 @@
 
         <script src="./js/utils.js"></script>
         <script>
-            function func(e) {
-                window.location.href = "/expAns?id=" + e;
+            function func(e, i) {
+                window.location.href = "/expAns?id=" + i + "&qid=" + e;
             }
         </script>
 
