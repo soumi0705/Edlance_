@@ -5,13 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chats</title>
+    <title>Admininstrator</title>
     <link href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.4/web3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!--***************-->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+	<link rel="shortcut icon" href="./images/edlancelogo.ico" type="image/x-icon">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <!--JS for dropdown change Later-->
+
+	<script src="../js/utils.js"></script>
 
 </head>
 
@@ -33,7 +38,7 @@
                       </span>
                   </abbr>
             <!-- Dropdown -->
-            <!-- <div class="inline font-medium float-right">
+            <div class="inline font-medium float-right">
                 <div x-data="{ dropdownOpen: true }" class="relative">
                     <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
                     <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -44,27 +49,19 @@
                     <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
                     <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-                        <a href="/stud-dash" class="block px-4 py-2 text-left text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
-                      Question dashboard
-                    </a>
-                        <a href="/stud-ask" class="block px-4 py-2 text-left text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
-                      Ask
-                    </a>
-                        <a href="/chat" class="block px-4 py-2 text-left text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
-                        Discuss
-                      </a>
-                        <!-- <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                        
+                    <!-- <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
                       Help
                     </a>
                     <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
                       Settings
                     </a> -->
-                        <!-- <a href="/" class="block px-4 py-2 text-left text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                    <a href="/" class="block px-4 py-2 text-left text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
                       Sign Out
                     </a>
                     </div>
                 </div>
-            </div> --> 
+            </div> 
             <!--********************************-->
         </nav>
         <div class="block text-center m-2 text-4xl font-mono">Stats</div>
@@ -193,8 +190,14 @@
     }
 
     document.onreadystatechange = ()=>{
-
+		
+		
         if(document.readyState =="complete"){
+			var acc = account[0];
+			console.log(acc);
+			if(acc!='0x58bf784011d10d6cB1D661F19d71d0E3803E1640'){
+				window.location.href='/';
+			}
             questions.forEach(Element =>{
                 var quill = new Quill(`#quillQ${Element._id}`,{
                     theme: 'snow',
@@ -210,5 +213,8 @@
         }
     }
 
+</script>
+<script>
+    var provider = setProvider();
 </script>
 </html>
