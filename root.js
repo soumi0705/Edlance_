@@ -15,12 +15,10 @@ const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const { json } = require('body-parser');
 
-const uri = "mongodb+srv://root:soumi07@quest.ni5bi.mongodb.net/edlance?retryWrites=true&w=majority"; //enter your own uri
+const uri = "mongodb+srv://root:soumi07@quest.ni5bi.mongodb.net/edtest?retryWrites=true&w=majority"; //enter your own uri
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 var thenpromise;
 var thenpromise2;
-var userID;
-var userType;
 
 
 client.connect(err => {
@@ -79,8 +77,8 @@ client.connect(err => {
     });
     app.post("/", async function(req, res) {
         console.log(req.body);
-        var collection = client.db("edlance").collection('Users');
-        var collection2 = client.db("edlance").collection('Experts'); // get reference to the collection
+        var collection = client.db("edtest").collection('Users');
+        var collection2 = client.db("edtest").collection('Experts'); // get reference to the collection
         var doc;
         var promise = collection.findOne({ emailId: req.body.emailId });
         var promise2 = collection2.findOne({ emailId: req.body.emailId });
@@ -138,8 +136,8 @@ client.connect(err => {
     /************************************************************************************************************/
     app.get("/stud-ask", checkLoginUser2, async function(req, res) {
         console.log("Student Logged in");
-        const collection = client.db("edlance").collection("Questions");
-        const collection2 = client.db("edlance").collection("Answers");
+        const collection = client.db("edtest").collection("Questions");
+        const collection2 = client.db("edtest").collection("Answers");
         collection.find({ stud_id: "1" }).toArray(function(err, result) {
             collection2.find().toArray(function(err2, answer) {
                 if (err2) throw err2;
@@ -148,7 +146,7 @@ client.connect(err => {
         });
     });
     app.post("/stud-ask", function(req, res) {
-        const collection = client.db("edlance").collection("Questions");
+        const collection = client.db("edtest").collection("Questions");
         d = new Date();
         s = d.getTime();
         collection.insertOne({ _id: req.body._id, stud_id: req.body.stud_id, question: req.body.questions, time_created: s, time_constraint: 3 });
@@ -158,7 +156,7 @@ client.connect(err => {
     app.get("/studAns", checkLoginUser2, async function(req, res) {
 
         console.log("Student Logged in");
-        const collection = client.db("edlance").collection("Questions");
+        const collection = client.db("edtest").collection("Questions");
         collection.find().toArray(function(err, result) {
             if (err) throw err;
             res.render("studAnswer", { result });
@@ -166,15 +164,15 @@ client.connect(err => {
     });
     app.post("/studAns", function(req, res) {
         console.log(req.body);
-        const collection = client.db("edlance").collection("Stud_Answers");
+        const collection = client.db("edtest").collection("Stud_Answers");
         collection.insertOne({ qid: req.body._id, stud_acc: req.body.acc, answer: req.body.answers });
         res.status(200);
         res.redirect("stud-dash");
     });
     /************************************************************************************************************/
     app.get("/stud-dash", checkLoginUser2, async function(req, res) {
-        const collection = client.db("edlance").collection("Questions");
-        const collection2 = client.db("edlance").collection("Answers");
+        const collection = client.db("edtest").collection("Questions");
+        const collection2 = client.db("edtest").collection("Answers");
         collection.find().toArray(function(err, result) {
             if (err) throw err;
             collection2.find().toArray(function(err2, answer) {
@@ -187,10 +185,11 @@ client.connect(err => {
     app.get("/quessearch", checkLoginUser2, async function(req, res) {
         const s = req.query.term;
         console.log(s);
-        const collection = client.db("edlance").collection("Questions");
-        const collection2 = client.db("edlance").collection("Answers");
+        const collection = client.db("edtest").collection("Questions");
+        const collection2 = client.db("edtest").collection("Answers");
         collection.find({ $text: { $search: s } }).toArray(function(err, result) {
-            if (err) throw err;
+
+            if (err) res.redirect('stud-dash');
             collection2.find().toArray(function(err2, answer) {
                 if (err2) throw err2;
                 res.render("searched", { result: result, result2: answer });
@@ -201,8 +200,8 @@ client.connect(err => {
     app.get("/expert-dash", checkLoginUser, async function(req, res) {
 
         console.log("Expert Logged in");
-        const collection = client.db("edlance").collection("Questions");
-        const collection2 = client.db("edlance").collection("Answers");
+        const collection = client.db("edtest").collection("Questions");
+        const collection2 = client.db("edtest").collection("Answers");
         collection.find().toArray(function(err, result) {
             if (err) throw err;
             collection2.find().toArray(function(err2, answer) {
@@ -214,14 +213,14 @@ client.connect(err => {
     });
     /************************************************************************************************************/
     app.get("/expAns", checkLoginUser, async function(req, res) {
-        const collection = client.db("edlance").collection("Questions");
+        const collection = client.db("edtest").collection("Questions");
         collection.find().toArray(function(err, result) {
             if (err) throw err;
             res.render("expAnswer", { result });
         });
     });
     app.post("/expAns", function(req, res) {
-        const collection = client.db("edlance").collection("Answers");
+        const collection = client.db("edtest").collection("Answers");
         collection.insertOne({ _id: req.body._id, answer: req.body.answers });
         res.status(200);
         res.redirect("expert-dash");
@@ -244,10 +243,10 @@ client.connect(err => {
 
     /*******************************************admininstrator***************************************************/
     app.get("/admin", (req, res) => {
-        var users = client.db("edlance").collection('Users');
-        var experts = client.db("edlance").collection('Experts');
-        var questions = client.db("edlance").collection('Questions');
-        var answers = client.db("edlance").collection('Answers');
+        var users = client.db("edtest").collection('Users');
+        var experts = client.db("edtest").collection('Experts');
+        var questions = client.db("edtest").collection('Questions');
+        var answers = client.db("edtest").collection('Answers');
 
         users.find().toArray(function(err, _Users) {
             experts.find().toArray(function(err2, _Experts) {

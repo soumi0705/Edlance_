@@ -62,11 +62,11 @@
                 var quill;
 
                 $(document).ready(async function() {
-                    var qs = await fetchAllQuestions();
-                    var acc = await accountAddress();
+                    //var qs = await fetchAllQuestions();
+                   // var acc = await accountAddress();
                     const params = new URLSearchParams(window.location.search)
                     var i = params.get('id')
-                    var q = qs[parseInt(quest[i]._id)]
+                    //var q = qs[parseInt(quest[i]._id)]
                     console.log(i);
                     $("body").append(
                         '<div class="grid">' +
@@ -91,7 +91,7 @@
                         '<!-- answer Textarea -->' +
                         '<form name="answer" id="answer" method="POST">' +
                         '<input type="hidden" name="_id" value=' + i + '>' +
-                        '<input type="hidden" name="acc" value=' + acc + '>' +
+                        //'<input type="hidden" name="acc" value=' + acc + '>' +
                         '<input type="hidden" name="answers">' +
                         '</form>' +
                         '<p class="text-gray-500 font-mono text-sm pb-2">'
@@ -110,7 +110,7 @@
                         '<div class="block">' +
 
                         '<h1 class="text-green-500 text-md font-bold ">' +
-                        'μETH ' + 0.3 * metamaskWeb3.utils.fromWei(q.bounty, 'milli') + '/-' +
+                        'mETH Dummy Bounty' + /*0.3 * metamaskWeb3.utils.fromWei(q.bounty, 'milli') +*/ '/-' +
                         '<!-- set ETH -->' +
                         '</h1>' +
                         '<p class="inline px-8 text-sm text-gray-400">' +
@@ -154,14 +154,15 @@
                     var formdata = new FormData(answer);
                     console.log(quill.getContents());
                     formdata.set('answers', JSON.stringify(quill.getContents()))
-                    request.open("POST", "/studAns");
-                    //request.setRequestHeader("Content-Type", "application/json");
-                    var formdata1 = '_id=' + formdata.get("_id") + '&acc=' + formdata.get("acc") + '&answers=' + formdata.get("answers");
-                    //var formdata= {"_id":0}
-                    // request.setRequestHeader("Content-Type", "application/json")
-                    console.log();
-                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    request.send(formdata1);
+					alert('Answer Posted for Varification !')
+                    // request.open("POST", "/studAns");
+                    // //request.setRequestHeader("Content-Type", "application/json");
+                    // var formdata1 = '_id=' + formdata.get("_id") + '&acc=' + formdata.get("acc") + '&answers=' + formdata.get("answers");
+                    // //var formdata= {"_id":0}
+                    // // request.setRequestHeader("Content-Type", "application/json")
+                    // console.log();
+                    // request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    // request.send(formdata1);
 
                     window.location.href = "/stud-dash";
                 };
@@ -198,11 +199,11 @@
     </body>
 
 
-    <script src="./js/utils.js"></script>
+   <!-- <script src="./js/utils.js"></script>-->
 
-    <script>
+ <!--   <script>
         var provider = setProvider();
-    </script>
+    </script> -->
 </body>
 
 </html>

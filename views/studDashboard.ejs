@@ -95,10 +95,10 @@
                 var quest = <%- JSON.stringify(result)%>;
                 var ans = <%- JSON.stringify(result2)%>;
                 $(document).ready(async function() {
-                    var qs = await fetchAllQuestions();
+                   // var qs = await fetchAllQuestions();
 
                     for (i = 0; i < quest.length; i++) {
-                        var q = qs[parseInt(quest[i]._id)]
+                        //var q = qs[parseInt(quest[i]._id)]
                         $("body").append(
                             '<div class="grid">' +
                             '<div class="mt-4 bg-gray-50 w-3/4 m-auto p-4 border-2">' +
@@ -133,7 +133,7 @@
                             '<div class="block">' +
 
                             '<h1 id="amt' + i + '" class="text-green-500 text-md font-bold ">' +
-                            'mETH ' + Math.round(0.3 * metamaskWeb3.utils.fromWei(q.bounty, 'milli') * Math.pow(10, 3)) / Math.pow(10, 3) + '/-' +
+                            'mETH Dummy Bounty' + /*Math.round(0.3 * metamaskWeb3.utils.fromWei(q.bounty, 'milli') * Math.pow(10, 3)) / Math.pow(10, 3) +*/ '/-' +
                             '<!-- set ETH -->' +
                             '</h1>' +
                             '<p class="inline px-8 text-sm text-gray-400">' +
@@ -177,16 +177,16 @@
     </body>
 
 
-    <script src="./js/utils.js"></script>
+    <!-- <script src="./js/utils.js"></script> -->
     <script>
         function func(e) {
             window.location.href = "/studAns?id=" + e;
         }
     </script>
 
-    <script>
+    <!-- <script>
         var provider = setProvider();
-    </script>
+    </script> -->
 </body>
 
 </html>
