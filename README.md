@@ -23,6 +23,7 @@ Blockchain: Bring change to transactions and cryptocurrency with promising Block
 * Application of a trending education technique "Education by Gamification" (Peer answering resulting in real monetary rewards).
 * Bounty system in which each question will have some mEth put in as bounty and can be redeemed be giving an answer within a constrained time period.
 * Peer answer should be verified by Expert before unlocking of funds for better user experience.
+* Additional Disscussions Panel for Peer-Peer communication, sharing of knowledge.
 
 ### Benefits:
 * Verified Educators can earn their livelihoods easily at the comfort of their house.
@@ -35,10 +36,11 @@ Blockchain: Bring change to transactions and cryptocurrency with promising Block
 ### Future Plans :
 1. Upvote/downvote (for peer answers)
 2. Auto upgrade account to Student Pro (calculation Based on their Peer answers)
-3. Discussion panel (with Experts)
+3. Paid Discussion panel (with Experts)
 4. Additional knowledge sharing section (off-Topic)\
 
-[Link to PPT](https://docs.google.com/presentation/d/11hzHx92gPnx3sOkRfBTbXifp00ps7sM7xDixAWLNiwo/edit?usp=sharing)
+[Link to PPT](https://docs.google.com/presentation/d/11hzHx92gPnx3sOkRfBTbXifp00ps7sM7xDixAWLNiwo/edit?usp=sharing) 
 
+[Stable Master Branch](https://github.com/soumi0705/Edlance_/commit/89c9d18fb3af50bee445671b1be23f29ad9c41d8)
 <!-- [Link to Video]()
  -->
