@@ -145,41 +145,7 @@
                 </svg>
         </h1>
 
-        <!-- display questions -->
 
-        <!--    <div class="grid">
-                <div class="mt-4 bg-gray-100 rounded w-1/2 m-auto p-4 shadow-md">
-                    <h1 class="text-gray-500 text-sm">
-                        <svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-                          </svg>
-                        Priority
-                    </h1>
-
-                    <p class="font-semibold pt-4 pb-2 ">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste mollitia veritatis, soluta labore ducimus ipsam reprehenderit, quis aperiam minus sed iusto doloremque quidem, accusantium assumenda maxime dignissimos fuga reiciendis vel?
-                    </p>
-
-                    <p class="text-gray-500 font-mono px-6 text-sm pb-2">
-                        this is anwser to display----
-                    </p>
-                    <h1 class="text-green-500 text-md font-bold inline">
-                        <svg class="w-6 inline"xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        Bounty ETH
-                    </h1>
-                    <p class="inline float-right text-sm text-gray-400">
-                        23:06
-                    </p>
-                </div>
-                
-            </div>
-            
-                
-
-        </div> -->
         <div id="myQuestions"></div>
         <button onclick="dashboard()" id="imageButton" style="background-color: #F6741F;" class=" focus:outline-none  text-white  border-yellow-500  mt-4 rounded p-2 m-auto block ">
                 Explore More
@@ -212,19 +178,33 @@
 <script>
     // quill
     var toolbarOptions = [
-    [{ 'header': [1, 2, 3] }],
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    ['blockquote', 'code-block'],
-    ['link','image','video'],
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-    ['clean']                                         // remove formatting button
-];
+        [{
+            'header': [1, 2, 3]
+        }],
+        ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video'],
+        [{
+            'list': 'ordered'
+        }, {
+            'list': 'bullet'
+        }],
+        [{
+            'script': 'sub'
+        }, {
+            'script': 'super'
+        }], // superscript/subscript
+        [{
+            'color': []
+        }, {
+            'background': []
+        }], // dropdown with defaults from theme
+        ['clean'] // remove formatting button
+    ];
     const quill = new Quill('#textareaQuestion', {
         theme: 'snow',
         placeholder: 'Post Your Question...',
-        modules:{
+        modules: {
             toolbar: toolbarOptions
         }
     })
@@ -320,16 +300,24 @@
             var quill_ = new Quill(`#quill${i}`, {
                 theme: 'snow',
                 readOnly: true,
-                modules:{
-                    toolbar:false
+                modules: {
+                    toolbar: false
                 }
             })
             quill_.setContents(JSON.parse(quest[i].question))
 
             for (j = 0; j < ans.length; j++) {
                 if (ans[j]._id == quest[i]._id) {
-                    $("#ans" + i).append('<div class="px-6">' + ans[j].answer + '</div>');
+                    $("#ans" + i).append(`<div id='quillanswer${j}'></div>`);
                     $('#amt' + i).html('0/-');
+                    var quill_ = new Quill(`#quillanswer${j}`, {
+                        theme: 'snow',
+                        readOnly: true,
+                        modules: {
+                            toolbar: false
+                        }
+                    })
+                    quill_.setContents(JSON.parse(ans[j].answer));
                 }
             }
         }
