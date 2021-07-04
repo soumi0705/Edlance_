@@ -97,7 +97,8 @@ client.connect(err => {
                     console.log("In Student checking Password ");
                     req.session.userID = doc.sName;
                     req.session.userType = 'student';
-                    return [1, req.session.userID, req.session.userType];
+					req.session.stud_id = doc.stud_id;
+                    return [1, req.session.userID, req.session.userType, req.session.stud_id];
                 } else {
                     res.render('login');
                 }
@@ -136,12 +137,14 @@ client.connect(err => {
     /************************************************************************************************************/
     app.get("/stud-ask", checkLoginUser2, async function(req, res) {
         console.log("Student Logged in");
+		var stu_id = await thenpromise ;
+		console.log(stu_id[3]);
         const collection = client.db("edtest").collection("Questions");
         const collection2 = client.db("edtest").collection("Answers");
-        collection.find({ stud_id: "1" }).toArray(function(err, result) {
+        collection.find().toArray(function(err, result) {
             collection2.find().toArray(function(err2, answer) {
                 if (err2) throw err2;
-                res.render("postQuestion", { result: result, result2: answer });
+                res.render("postQuestion", { result: result, result2: answer, stud_id: stu_id[3] });
             });
         });
     });
@@ -234,6 +237,15 @@ client.connect(err => {
         // store to mongodb
         console.log(req.body);
         //req.body.username (email.pass.usermode)
+		var users = client.db("edtest").collection('Users');
+		users.find().toArray(function(err, _Users) {
+			var i = (_Users.length+1);
+			bcrypt.hash(req.body.pass, saltRounds, function(err, hash) {
+				if(err) res.redirect('/register');
+				users.insertOne({ stud_id:""+i, sName:req.body.username, emailId:req.body.email, passId:hash })
+			});
+			
+		});
         return res.redirect("/");
     });
     /************************************************************************************************************/
