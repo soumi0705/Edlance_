@@ -9,6 +9,7 @@ var rootRoute = require('./root');
 var session = require('express-session');
 const app = express();
 const socket = require('./socket')
+// const socketServer = require("http").Server(app)
 
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
