@@ -114,13 +114,13 @@
 
                         '<div class="block">' +
 
-                        '<h1 class="text-green-500 text-md font-bold ">' +
-                        'mETH Dummy Bounty' + /*0.3 * metamaskWeb3.utils.fromWei(q.bounty, 'milli') +*/ '/-' +
-                        '<!-- set ETH -->' +
-                        '</h1>' +
-                        '<p class="inline px-8 text-sm text-gray-400">' +
-                        '23:06' +
-                        '</p>' +
+                        // '<h1 class="text-green-500 text-md font-bold ">' +
+                        // 'mETH Dummy Bounty' + /*0.3 * metamaskWeb3.utils.fromWei(q.bounty, 'milli') +*/ '/-' +
+                        // '<!-- set ETH -->' +
+                        // '</h1>' +
+                        // '<p class="inline px-8 text-sm text-gray-400">' +
+                        // '23:06' +
+                        // '</p>' +
                         '</div>' +
                         '</div>' +
 
@@ -129,7 +129,7 @@
 
                     quill = new Quill('#textareaQuestion', {
                         theme: 'snow',
-                        placeholder: 'Post Your Answer...',
+                        placeholder: 'Post Your Answers...',
                         modules: {
                             toolbar: toolbarOptions
                         }
@@ -139,6 +139,7 @@
 
                     const quillQuestion = new Quill(`#quill${i}`, {
                         theme: 'snow',
+                        readOnly:true,
                         modules: {
                             toolbar: false
                         }
@@ -209,8 +210,6 @@
  <!--   <script>
         var provider = setProvider();
     </script> -->
-    <%- include("footer.ejs") %> 
-
 </body>
 
 </html>
