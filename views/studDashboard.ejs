@@ -19,6 +19,7 @@
 <body>
 
     <body>
+
         <!-- <div class="h-16 bg-yellow-500  shadow-xl "> -->
 		<!--Exclaimation-->
 		<div class="text-sm p-1 bg-blue-500 text-white w-full font-bold text-center" >
@@ -42,7 +43,7 @@
                      </abbr>
                     <!--Dropdown-->
                     <div class="inline float-right">
-                        <div x-data="{ dropdownOpen: true }" class="relative">
+                        <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
                         <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                           <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -138,9 +139,10 @@
                             '<div class="block">' +
 
                             '<h1 id="amt' + i + '" class="text-green-500 text-md font-bold ">' +
-                            'mETH Dummy Bounty' + /*Math.round(0.3 * metamaskWeb3.utils.fromWei(q.bounty, 'milli') * Math.pow(10, 3)) / Math.pow(10, 3) +*/ '/-' +
+                            'mETH Dummy Bounty value' + /*Math.round(0.3 * metamaskWeb3.utils.fromWei(q.bounty, 'milli') * Math.pow(10, 3)) / Math.pow(10, 3) +*/ '/-' +
                             '<!-- set ETH -->' +
                             '</h1>' +
+                            '<h1 class="block text-gray-500 text-sm">Prototype version will not support Bounty System <a target="_blank"  class="text-blue-500 text-sm"  href="https://www.notion.so/EdL-nce-Website-438a4a67320249e6876319ea046781c3"> Learn More</a> </h1>'+
                             '<p class="inline px-8 text-sm text-gray-400">' +
                             '23:06' +
                             '</p>' +
@@ -192,6 +194,8 @@
     <!-- <script>
         var provider = setProvider();
     </script> -->
+    
+
 </body>
 
 </html>

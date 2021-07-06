@@ -58,7 +58,7 @@
             </div>
             <!--Dropdown-->
             <div class="inline float-right">
-                <div x-data="{ dropdownOpen: true }" class="relative">
+                <div x-data="{ dropdownOpen: false }" class="relative">
                     <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
                         <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                           <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -123,7 +123,7 @@
 
 
             <!-- <textarea name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-24  hover:border-blue-300" placeholder="Post your questions!" id=""></textarea></form> -->
-            <div name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-24  hover:border-blue-300">
+            <div name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-40  hover:border-blue-300">
                 <!-- quill text editor -->
             </div>
 
@@ -151,10 +151,14 @@
         </h1>
 
 
-        <div id="myQuestions"></div>
+        <div id="myQuestions" ></div>
         <button onclick="dashboard()" id="imageButton" style="background-color: #F6741F;" class=" focus:outline-none  text-white  border-yellow-500  mt-4 rounded p-2 m-auto block ">
                 Explore More
             </button>
+        </div>
+<%- include("footer.ejs") %> 
+
+
 </body>
 
 <script>
@@ -308,6 +312,7 @@
 					'mETH Dummy Bounty' + /*metamaskWeb3.utils.fromWei(q.bounty, 'milli') +*/ '/-' +
 					'<!-- set ETH -->' +
 					'</h1>' +
+                    '<h1 class="block text-gray-500 text-sm">Prototype version will not support Bounty System <a target="_blank" class="text-blue-500 text-sm" href="https://www.notion.so/EdL-nce-Website-438a4a67320249e6876319ea046781c3"> Learn More</a> </h1>'+
 
 					'</div>' +
 					'</div>' +
@@ -347,5 +352,4 @@
 
 <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
 <script src="../js/dashboard-student.js"></script>
-
 </html>

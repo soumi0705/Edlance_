@@ -103,7 +103,7 @@
                         // +'<textarea form="answer" id="textareaQuestion" name="answers" class="px-2 py-1 w-full outline-none translate-x-0  focus:border-blue-500 rounded border-2  h-24 hover:bg-white hover:border-blue-500 " placeholder="Write Your Solution..."></textarea>' +
 
                         +
-                        '<div name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 h-24  hover:border-blue-300"><!-- quill text editor --></div>' +
+                        '<div class="h-72 bg-white mb-2"><div name="questions" id="textareaQuestion" class="px-2 focus:border-blue-500 py-1 w-full outline-none translate-x-0  border-2 border-gray-300 hover:border-blue-300"><!-- quill text editor --></div></div>' +
 
                         '</p>' +
                         '<div class="block float-right ">' +
@@ -129,7 +129,7 @@
 
                     quill = new Quill('#textareaQuestion', {
                         theme: 'snow',
-                        placeholder: 'Post Your Question...',
+                        placeholder: 'Post Your Answer...',
                         modules: {
                             toolbar: toolbarOptions
                         }
@@ -209,6 +209,8 @@
  <!--   <script>
         var provider = setProvider();
     </script> -->
+    <%- include("footer.ejs") %> 
+
 </body>
 
 </html>
