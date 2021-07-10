@@ -195,6 +195,7 @@ client.connect(err => {
             if (err) res.redirect('stud-dash');
             collection2.find().toArray(function(err2, answer) {
                 if (err2) throw err2;
+				console.log(result);
                 res.render("searched", { result: result, result2: answer });
             });
         });
