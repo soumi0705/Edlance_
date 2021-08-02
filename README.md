@@ -41,6 +41,6 @@ Blockchain: Bring change to transactions and cryptocurrency with promising Block
 
 [Link to PPT](https://docs.google.com/presentation/d/11hzHx92gPnx3sOkRfBTbXifp00ps7sM7xDixAWLNiwo/edit?usp=sharing) 
 
-[Stable Master Branch](https://github.com/soumi0705/Edlance_/commit/89c9d18fb3af50bee445671b1be23f29ad9c41d8)
+<!-- [Stable Master Branch](https://github.com/soumi0705/Edlance_/commit/89c9d18fb3af50bee445671b1be23f29ad9c41d8) -->
 <!-- [Link to Video]()
  -->
