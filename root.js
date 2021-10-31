@@ -4,7 +4,7 @@ const socket = require('socket.io');
 const express = require('express');
 var session = require('express-session');
 const app = express();
-
+require('dotenv').config()
 app.use(express.urlencoded({ extends: true }));
 
 var router = require("express").Router();
@@ -15,7 +15,7 @@ const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const { json } = require('body-parser');
 
-const uri = "mongodb+srv://root:soumi07@quest.ni5bi.mongodb.net/edtest?retryWrites=true&w=majority"; //enter your own uri
+const uri = process.env.MONGO_DB_URI; //enter your own uri
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 var thenpromise;
 var thenpromise2;
